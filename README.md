@@ -11,7 +11,7 @@ Cheers, Vijay 🚀
 
 ## 📚Contents of this Repository:
 
-### 📖[Oracle 23AI-Part-1.pdf]('Oracle%2023AI-Part-1.pdf')
+### 📖[Oracle 23AI-Part-1.pdf](Oracle%2023AI-Part-1.pdf)
 
 ## Demo-Scripts:
 
