@@ -1,0 +1,43 @@
+[DEFAULT]
+user=ocid1.user.oc1..aaaaaaaaoegu42e4rfqyaz5tfhxyel7v6sc5elx6yrpccqlsyn3wrwqnmmuq
+fingerprint=58:24:ee:42:86:fe:ab:94:e4:e3:e1:67:e3:80:fc:e8
+tenancy=ocid1.tenancy.oc1..aaaaaaaa4jlkvlylxuwrnpcgybni5e34gqxzf6hywqtjcrmwdjy7coihqcga
+region=us-phoenix-1
+key_file=<path to your private keyfile> # TODO
+
+
+oci os object bulk-download -ns ocuocictrng20 -bn DSP-LABS -- download-dir ./labs --auth 'resource_principal'
+
+odsc conda install --uri oci://LAB_Conda@ocuocictrng20/generalml_p38_cpu_v1
+
+conda activate /home/datascience/conda/generalml_p38_cpu_v1
+
+odsc conda install -s tensorflow28_p38_cpu_v1 
+
+conda activate /home/datascience/conda/tensorflow28_p38_cpu_v1
+
+
+odsc conda install -s forecast_p38_cpu_v2 
+
+
+ads operator init -t forecast --output my-forecast
+
+vi forecast.yaml
+
+kind: operator
+type: forecast
+version: v1
+spec:
+    datetime_column:
+        name: ds
+    historical_data:
+        url: https://raw.githubusercontent.com/facebook/prophet/main/examples/example_yosemite_temps.csv
+    horizon: 3
+    model: auto
+    target_column: y
+
+conda activate /home/datascience/conda/forecast_p38_cpu_v2
+
+ads operator run -f forecast.yaml
+
+test git changes integration from vscode
